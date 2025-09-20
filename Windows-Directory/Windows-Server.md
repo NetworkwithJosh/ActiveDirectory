@@ -207,7 +207,25 @@ The Computer has been joined to the domain
 
 1. Log into **Alexander Isak’s PC** using the assigned **username** and **password**.
 ![Screenshot](images/screenshot19-1.jpg)
+2. Navigate to file explorer then **This PC** → In the **search bar**, type:
 
+ \\\Windowsserver20\Joshua
 
+> Try accessing other folders:
 
+- You will get an error saying "You don’t have access to this folder."
+![Screenshot](images/screenshot20.jpg)
+---
+## Mapping a Network Drive for Bob Smith
 
+1. Right-click on **This PC** → Select **Map Network Drive**.
+    
+2. Select **Drive (Z:)**.
+    
+3. In the **Folder** field, enter the path:
+
+`\\Windowsserver20\Joshua\Sales`
+4. Click **Finish**.
+![Screenshot](images/screenshot21.jpg)
+![Screenshot](images/screenshot22.jpg)
+![Screenshot](images/screenshot23.jpg)
