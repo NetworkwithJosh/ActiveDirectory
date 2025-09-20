@@ -145,12 +145,68 @@ The Computer has been joined to the domain
 
 * Logged in with the account (username) I created on Active Directory and now I can manage this account, reset password, disable account & apply group policies to the Computer.
   
-![Screenshot](images/screenshot
+![Screenshot](images/screenshot78.jpg)
 
+# Shared Drive Permissions & User Account Creation
+---
+## Shared Drive Permissions
 
+- **Creating a shared folder** for Sales, HR & Finance.  
+  - Disable inheritance for each group (so each group has custom permissions and can't access the other groups' folders).
 
+### Steps to Create a Shared Folder:
+1. Navigate to **Server Manager** → **File and Storage Services** → **Shares**.
+2. Right-click on blank space → **New Share** → **SMB Share - Quick**.
+![Screenshot](images/screenshot11.jpg)
+3. Click **Next** → **Share Name**: `Joshua` → **Other Settings** → **Permissions** → **Next**.
+4. Confirm and **Create**.
+![Screenshot](images/sscreenshot12.jpg)
 
+> To confirm the share drive is created:
 
+- Navigate to **File Explorer** → **This PC** → **Local Disk (C:)** → **Shares** → `Joshua` folder.
+![Screenshot](images/screenshot13.jpg)
+- Create folders inside `Nykason` for:
+  - HR  
+  - Sales  
+  - Finance  
+![Screenshot](images/screenshot14.jpg)
+---
+## Creating User Accounts in Active Directory Users and Computers
+
+### Steps to Create User Accounts:
+1. Navigate to **Active Directory** → **Users** → **New**.
+2. Scroll down to **Users** → Create a **Username** and **Password**.
+3. Created user accounts for:
+   - Ex:Alexander Isak  
+   - Ex:Cole Palmer 
+   - Ex:Marcus Rashford
+![Screenshot](images/screenshot16.jpg)
+# Configuring Shared Folder Permissions & Network Drive Mapping
+
+## Disable Inheritance for Each User
+
+1. Navigate to the folder for **HR**, **Sales**, or **Finance**.
+2. Right-click on **Sales** → **Properties** → **Security** → **Advanced Settings**.
+3. Click **Add** → **Select Principal** → Add **Alexander Isak** → Click on **Modify** → Click **OK**.
+![Screenshot](images/screenshot17.jpg)
+## Remove Default Users, Keep Only Required Users
+
+- Disable inheritance.
+- Remove all users, leaving only **Administrators** and **Alexander Isak**.
+- Set **Alexander Isak** as the owner.
+- Click **Apply** and **OK**.
+![Screenshot](images/screenshot18.jpg)
+> Apply the same format to **HR** and **Finance** folders:
+- Add only **Cole Palmer** for HR.
+- Add only **Marcus Rashford** for Finance.
+- Disable inheritance in each case.
+
+---
+## Logging into Each User PC
+
+1. Log into **Alexander Isak’s PC** using the assigned **username** and **password**.
+![Screenshot](images/screenshot19-1.jpg)
 
 
 
