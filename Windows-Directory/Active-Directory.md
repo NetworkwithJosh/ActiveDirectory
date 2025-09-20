@@ -4,7 +4,7 @@ Active Directory also known as (AD) is a Microsoft directory service and identif
 
 ![Screenshoot](images/ActiveDirectory.png)
 
---
+---
 ## Active Directory Domain Services Intstallation
 
 **Before you begin:**
