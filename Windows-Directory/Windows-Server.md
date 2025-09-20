@@ -124,7 +124,30 @@ Virtual machines on one server
 
 * If it's a new install, for home lab (Renaming the PC will be easy to remember the Computer)  
 Click on the Active File Explorer → Properties → change Settings → Computer name → Rename the Computer → Restart the Computer
-![Screenshot](images/screenshot.jpg)
+![Screenshot](images/screenshot6-7.jpg)
+
+---
+
+* Navigate to your Control panel → Search & type Control Panel → View network status & tasks → change adapter
+Settings → Ethernet → Properties → Disable IPv6 → Click on (TCP/IPv4) → Use the following IP address and click ok  
+Use ping command to try and reach your Windows Sever
+
+**pinging the server**
+![Screenshot](images/screenshot4.jpg)
+
+---
+
+* **Now join the Computer to the Domain**  
+Click on the File Explorer → Right click on This PC → Properties → Domain or Workgroup (Win 11) → Advance Settings (Win10) → member of Domain  
+administrator *username* (capitalp123) and password  
+The Computer has been joined to the domain
+![Screenshot](images/screenshot10.jpg)
+
+* Logged in with the account (username) I created on Active Directory and now I can manage this account, reset password, disable account & apply group policies to the Computer.
+  
+![Screenshot](images/screenshot
+
+
 
 
 
