@@ -14,7 +14,7 @@ It helps organizations:
 ## Active Directory Domain Services Intstallation
 
 **Before you begin:**
-![Screenshot](images/screenshot05.jpg)
+![Screenshot](images/screenshot1-1.png)
 1. Open **Server Manager**.
 2. Click **Next**.
 3. Select **Role-based or feature-based installation**.
@@ -43,7 +43,7 @@ It helps organizations:
    - User's name  
    - Password (check "User must change password at next login")  
 6. Click **Finish**.
-![Screenshot](images/screenshot55.jpg)
+![Screenshot](images/screenshot16.jpg)
 ---
 ## Show More Details About a User
 
