@@ -82,7 +82,7 @@ Virtual machines on one server
 7. Click **Next**, then **Install** (wait for it to succeed).
 8. Click **Promote this server to a domain controller**.
 9. Select **Add a new forest**.
-10. Enter the **Root domain name** (e.g., `Njikason.com`).
+10. Enter the **Root domain name** (e.g., `Joshua.local`).
 11. Create a password (e.g., `Password@123`).
 12. Click **Next**.
 13. Wait for **Prerequisites check**.
@@ -166,7 +166,7 @@ The Computer has been joined to the domain
 
 - Navigate to **File Explorer** → **This PC** → **Local Disk (C:)** → **Shares** → `Joshua` folder.
 ![Screenshot](images/screenshot13.jpg)
-- Create folders inside `Nykason` for:
+- Create folders inside `Joshua` for:
   - HR  
   - Sales  
   - Finance  
