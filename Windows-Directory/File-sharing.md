@@ -1,1 +1,237 @@
+# File-Sharing
 
+## How to map a drive (Share Drive Permissions) - Home Lab
+
+A mapped drive or shared folder is a network location assigned a drive letter on a computer, allowing users to access files and folders on a remote server as if they were stored locally.
+![Screenshot](images/screenshot24.jpg)
+
+---
+## Steps to Create a Shared Folder
+
+1. Go to **Start menu** → Search for **Server Manager**
+2. Navigate to **File and Storage Services**
+3. Tap on **Shares** → **New Share**
+4. Choose **SMB Share - Quick** → Click on it and click **Next**
+5. Select **Share location** → Click **Next**
+6. Enter **Share name** (e.g., `HR` or `Sales`) → Click **Next**
+7. Configure **Other Settings** → Click **Next**
+8. Set **Permissions** → Confirm and click **Create**
+![Screenshot](images/screenshot25.jpg)
+---
+## Access the Shared Folder
+
+1. Go to **File Explorer** → **This PC** → **Local Disk (C:)**
+2. Check under **HR Folders** (This is the shared folder we just created)
+![Screennshot](images/screenshot27.jpg)
+---
+## Note
+
+- Typically in a work environment, shared folders are assigned to a **group**.
+- Only group members are allowed to access that folder.
+- These groups are created in **Active Directory Users and Computers** (Group type: *Security*) to be able to access the files.
+
+## Create a Group in Active Directory
+
+1. Go to **Active Directory Users & Computers**
+2. Create a group:
+   - Navigate to **Users** → Right-click → **New** → **Group**
+   - Name the group (e.g., HR)
+3. Tap on the group and add members:
+   - Go to **Members** → Click **Add**
+   - Enter the usernames and click **Check Name**
+   - Click **Apply** and then **OK**
+![Screenshot](images/screenshot28.jpg)
+Added members to the group
+![Screenshot](images/screenshot29.jpg)
+
+---
+## How to Set Permissions on the Folder
+
+1. On the folder:
+   - Right-click → **Properties** → **Security**
+   - Tap **Advanced**
+   - Click **Disable Inheritance**
+   - Choose **Convert inherited permissions into explicit permissions on this object**
+   - Remove existing users
+2. Add permissions:
+   - Click **Add** → **Select Principal**
+   - Enter the username → Click **Check Name** → Click **OK**
+   - Set **Basic permissions** (e.g., Modify) and click **OK**
+3. Also add the personal group and modify permissions
+![Screenshot](images/screenshot30.jpg)
+---
+## Share the Folder
+
+- Go to **Sharing** tab → Click on **Share** (below the network path)
+- Grant **Read/Write** permissions as required
+![Screenshot](images/screenshot31.jpg)
+---
+## Note
+
+- **Disabling inheritance** prevents other users from accessing the folder.
+- It blocks unwanted permissions and ensures that **only the groups added** can access the files.
+
+---
+## Map the Drive
+
+- Log in to the user account and map the drive using the correct path.
+Example:
+\\windowsserver20\hr
+
+## Mapping Network Drives on a User Computer
+
+1. **Log into the user computer**
+2. Navigate to **File Explorer** → **This PC**
+3. Type in the search bar the UNC path:
+- Log into the User Computer → Navigated to File Explorer → This PC → If the User has been mapped to a drive before, try to confirm the path `\\windowsserver2022\hr`
+
+- This PC → Right click on it → Select Map network drive and select a drive (Z: or any letter based on available drive in the Company) → Folder (Type the path, `\\windowserver2022\hr` and finish)
+![Screenshot](images/screenshot32.jpg)
+
+- ## You can also map a network drive in active directory 
+
+→ Go to active directory → Select the User's properties → go to Profile → Home Folder → Connect
+
+→ Select a network path then type the path as:  
+`\\windowsserver20\hr`
+
+→ Use username to it allows each User to automatically map personal drive when they log in.
+
+---
+![Screenshot](images/screenshot33.jpg)
+> You can also sign in how to save with that script:  
+`\\windowsserver20\` → Map the drive
+
+# Effective Permissions and Inheritance
+
+## Step 1: Create a Security Group in Active Directory
+
+- Navigate to **Active Directory Users & Computers**
+- Create a **Security Group** under an Organization Unit  
+  - Example:  
+    - Right-click on `HR` → `New` → `Group`
+    - Enter group name  
+    - Select `Global` and `Security` for group scope and group type  
+    - Click `OK`
+![Screenshot](images/screenshot34.jpg)
+---
+## Step 2: Create Shared Folder Structure
+
+- Open **File Explorer** → `This PC` → `Local Disk (C:)`
+- Create a new folder named: `Common`
+- Inside the folder, create subfolders: `Projects` and `events`
+---
+## Step 3: Set Sharing Permissions
+
+- Right-click on the `Common` folder → `Properties` → `Sharing` tab
+- Click on `Share` → Add `Everyone` → Click on `Share` and `Done`
+![Screenshot](images/screenshot35.jpg)
+---
+## Step 4: Set NTFS Permissions
+
+- Click on `Advanced Settings` → `Permissions`
+- Set permissions for **Everyone (Allow)** → Click `OK`
+
+- Go to the **Security** tab  
+  - Tap `Edit` → Select `Everyone`  
+  - Grant **Full Control** and **Modify**  
+  - Click `Apply` and `OK`
+![Screenshot](images/screenshot36.jpg)
+---
+## Step 5: Verify Inheritance
+- Check the subfolders:
+  - They should inherit permissions from the parent folder (`Common`)
+  - Any files or folders created inside the subfolders will carry the **same inheritance**
+
+# NTFS Permissions
+
+## Disable Inheritance
+- **Give permissions only to Project group** and disable non-group members from accessing the folder.
+- Right-click on **Project folder** → **Properties** → **Security** → **Advanced** → Click on **Disable Inheritance**.
+  - Click on **Everyone** → **Remove** → **Apply** → **OK**
+- Click on **Add** (from advanced) → **Add** → Select a **Principal** (type the group & OK)
+  - Set **Basic permissions** → **Full Control** → **Apply** → **OK**
+![Screenshot](images/screenshot17.jpg)
+![Screenshot](images/screenshot37.jpg)
+
+---
+## Implementing Explicit Deny in NTFS Permissions
+
+- **Create a folder** (parent folder) → **Create a Subfolder** (Confidential & materials)
+  - Go to **Project** → Right-click → **Properties** → **Share** → Add **Everyone** → **Share** & Done
+
+- Navigate to the **Subfolder** (Confidential) → Right-click → **Properties** → **Security** → Click on **Edit** → Add and OK
+  - Click on **User** (that you want to deny NTFS permissions) → Tap on **Deny (Read)**
+
+- **Prompt Windows Security** → **YES**
+![Screenshot](images/screenshot39.jpg)
+## Shared Drive - Mapping Network Drive via Group Policy
+
+- It is very important to guide the user and avoid any technical terms.
+- Make it simple and interactive with the user.
+### Topics Covered
+- Shared drive
+- How to map network drive
+- Creating a network drive via group policy that allows automatic mapping for files for users on the same group permissions.
+### Steps
+
+1. **Create a New Group**
+   - Example: Financial Group in Active Directory.
+   - Add users to the group (e.g., David Miller, Bony Allen).
+![Screenshot](images/screenshot40.jpg)
+![Screenshot](images/screenshot41.jpg)
+1. **Navigate to the Server**
+   - Go to: `File & Storage Services`.
+   - Right-click on `Shares` → `New Share`.
+![Screenshot](images/screenshot42.jpg)
+   - Select `SMB Share - Quick`.
+   - Share location: `C:\drive` → Click Next.
+   - Share name: `FinanceNetworkDrive` → Click Next.
+![Screenshot](images/screenshot43.jpg)
+![Screenshot](images/screenshot44.jpg)
+1. **Permissions**
+   - Click on `Permissions` → `Customize permissions`.
+   - Disable inheritance.
+   - Convert inherited permissions into explicit permissions on this object.
+   - Click on `Add` → `Select a Principal`.
+   - Click `Advanced` → `Find Now` → Select and add `Financial Group`.
+![Screenshot](images/screenshot46.jpg)
+   - Click `Apply` and `OK` → Click `Next`.
+   - **Drive is Now Created**
+![Screenshot](images/screenshot45.jpg)
+### Mapping Drive via Group Policy
+
+1. Open `Server Manager` → Go to `Tools` → `Group Policy Management`.
+2. Navigate:
+   - Forest → Domain → `joshua.local`.
+1. Right-click on `Finance` → Create a GPO linked to `Finance`.
+![Screenshot](images/screenshot47.jpg)
+![Screenshot](images/screenshot48.jpg)
+### Domain GPO Configuration
+
+- Right-click on the created GPO → **User Configuration** → **Preferences** → **Windows Settings** → Right-click on **Drive Maps** → **New** → **Mapped Drive**
+![Screenshot](images/screenshot49.jpg)
+- Enter the path (directory of the folder) and paste it in the location field.
+- The path directory
+![Screenshot](images/screenshot50.jpg)
+- Check `Reconnect` box.
+- Use the first available letter (e.g., F: drive).
+### Item-Level Targeting
+- Go to **Common** tab at the top → Enable **Item-Level Targeting** → Targeting → **Security Groups** → **Advanced**
+![Screenshot](images/screenshot51.jpg)
+- Add the **Financial Group** → Apply & OK.
+![Screenshot](images/screenshot52.jpg)
+![Screenshot](images/screenshot53.jpg)
+---
+### Testing the GPO
+- Open Command Line and type:
+gpupdate /force
+- On my Windows 11 machine:
+- Logged in as **David Miller**.
+![Screenshot](images/screenshot54.jpg)
+- Opened **File Explorer**.
+- The mapped drive already shows:
+  ```
+  FinanceNetworkDrive
+  ```
+![Screenshot](images/screenshot55.jpg)
